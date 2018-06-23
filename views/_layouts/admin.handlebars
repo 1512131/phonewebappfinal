@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Quản trị</title>
+		<link rel="stylesheet" type="text/css" href="/assets/bootstrap-3.3.7/css/bootstrap.min.css">
+	</head>
+	<body style="background-color: whitesmoke">
+		<div class="container-fluid">
+			<div class="row">
+				<nav id="navbar" class="navbar navbar-inverse navbar-static-top"">
+					<div class="container">
+						<div class="navbar-header">
+							<a id="logo-link" class="navbar-brand" href="">
+								<img id="logo-image" src="/image/logo.png" alt="logo">
+							</a>
+						</div>
+						
+						<ul class="nav navbar-nav">
+							<li><a href="/admin/product">QUẢN LÝ SẢN PHẤM</a></li>
+							<li><a href="/admin/category">QUẢN LÝ DANH MỤC</a></li>
+							<li><a href="/admin/manufacture">QUẢN LÝ NHÀ SẢN XUẤT</a></li>
+							<li><a href="/admin/order">QUẢN LÝ ĐƠN HÀNG</a></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="">Đăng xuất</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4">
+					{{{_sections.title}}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8">
+					{{{body}}}
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="/assets/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="/assets/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+	</body>
+</html>

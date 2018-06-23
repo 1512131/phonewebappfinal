@@ -7,6 +7,8 @@ var wnumb = require('wnumb');
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 
+var adminController = require('./controllers/adminController');
+
 var app = express();
 
 app.engine('hbs', exphbs({
@@ -31,6 +33,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+
+app.get('/', (req, res) => {
+    res.redirect('/admin');
+});
+
+app.use('/admin', adminController);
 
 app.listen(3000, () => {
     console.log('Site running on port 3000');
