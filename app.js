@@ -4,9 +4,13 @@ var express_handlebars_sections = require('express-handlebars-sections');
 var bodyParser = require('body-parser');
 var path = require('path');
 var wnumb = require('wnumb');
+
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 
+var handleLayoutMDW = require('./middle-wares/handleLayout');
+
+var homeController = require('./controllers/homeController');
 var adminController = require('./controllers/adminController');
 
 var app = express();
@@ -34,10 +38,13 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
+app.use(handleLayoutMDW);
+
 app.get('/', (req, res) => {
     res.redirect('/admin');
 });
 
+app.use('/home', homeController);
 app.use('/admin', adminController);
 
 app.listen(3000, () => {
