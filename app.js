@@ -12,6 +12,7 @@ var handleLayoutMDW = require('./middle-wares/handleLayout');
 
 var homeController = require('./controllers/homeController');
 var adminController = require('./controllers/adminController');
+var productController = require('./controllers/productController')
 
 var app = express();
 
@@ -41,11 +42,12 @@ app.use(bodyParser.urlencoded({
 app.use(handleLayoutMDW);
 
 app.get('/', (req, res) => {
-    res.redirect('/admin');
+    res.redirect('/home');
 });
 
 app.use('/home', homeController);
 app.use('/admin', adminController);
+app.use('/product',productController);
 
 app.listen(3000, () => {
     console.log('Site running on port 3000');
