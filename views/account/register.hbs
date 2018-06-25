@@ -1,0 +1,50 @@
+{{#section 'css'}}
+<link rel="stylesheet" type="text/css" href="/assets/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/register.css">
+<script src='https://www.google.com/recaptcha/api.js'></script>
+{{/section}}
+
+<h3 class="container-custom pane-header">Tạo tài khoản</h3>
+<div class="container-custom white-background">
+	<form id="registerForm" action="" method="POST" role="form">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="head-box-title">Tên đăng nhập</div>
+				<input  id="txtUsername" name="username" type="text" class="form-control box" placeholder="Vui lòng nhập tên đăng nhập">
+				<span id="username-message" class="error-message"></span><br>
+				<div class="box-title">Mật khẩu</div>
+				<input  id="txtPassword" name="password" type="password" class="form-control box" placeholder="Mật khẩu tối thiểu 4 kí tự">
+				<span id="password-message" class="error-message"></span><br>
+				<div class="box-title">Nhập lại mật khẩu</div>
+				<input  id="txtRetype" type="password" class="form-control box" placeholder="Vui lòng nhập lại mật khẩu">
+				<span id="retype-message" class="error-message"></span><br>
+				<div class="box-title">Họ và tên</div>
+				<input  id="txtName" name="name" type="text" class="form-control box" placeholder="Vui lòng nhập họ tên">
+				<span id="name-message" class="error-message"></span><br>
+			</div>
+			<div class="col-lg-6">
+				<div class="head-box-title">Email</div>
+				<input  id="txtEmail" name="email" type="text" class="form-control box" placeholder="Vui lòng nhập email">
+				<span id="email-message" class="error-message"></span><br>
+				<div class="box-title">Ngày sinh</div>
+				<input id="txtDOB" name="dob" type="text" class="form-control box" placeholder="d/m/yyyy">
+				<span id="birthday-message" class="error-message"></span><br>
+
+				<!-- <div class="g-recaptcha" data-sitekey="6LcG61QUAAAAAPD4CRTXZj51BLpKxV_rVsKYX3mC"></div> -->
+				<span id="captcha-message" class="error-message"></span><br>
+				<button  id="btn-sign-up" class="btn btn-success" type="submit">ĐĂNG KÍ</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+{{#section 'js'}}
+	<script type="text/javascript" src="/assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript" src="/assets/js/register.js"></script>
+	<script type="text/javascript">
+		$('#txtDOB').datepicker({
+			format: 'd/m/yyyy',
+			autoclose: true
+		});
+	</script>
+{{/section}}

@@ -47,14 +47,34 @@
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/signup">ĐĂNG KÍ</a></li>
-				<li><a href="/login">ĐĂNG NHẬP</a></li>
+				{{#if layoutVM.isLogged}}
+				<form id="frmLogout" method="post" action="/account/logout"></form>
+				<li><a href="/cart">GIỎ HÀNG</a></li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="cap-nhat-thong-tin.html">
+						{{upper_case layoutVM.user.f_Name}}
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="/account/information" onclick="">Cập nhật thông tin</a></li>
+						<li><a href="/account/history" onclick="">Lịch sử mua hàng</a></li>
+						<li><a id="lnkLogout" href="javascript:;">Đăng xuất</a></li>
+					</ul>
+				</li>
+				{{else}}
+				<li><a href="/account/register">ĐĂNG KÍ</a></li>
+				<li><a href="/account/login">ĐĂNG NHẬP</a></li>
+				{{/if}}
 			</ul>
 		</div>
 	</nav>
 	{{{body}}}
 	<script type="text/javascript" src="/assets/js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="/assets/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$('#lnkLogout').on('click', function() {
+			$('#frmLogout').submit();
+		});
+	</script>
 	{{{_sections.js}}}
 </body>
 </html>

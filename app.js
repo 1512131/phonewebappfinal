@@ -11,6 +11,7 @@ var MySQLStore = require('express-mysql-session')(session);
 var handleLayoutMDW = require('./middle-wares/handleLayout');
 
 var homeController = require('./controllers/homeController');
+var accountController = require('./controllers/accountController');
 var adminController = require('./controllers/adminController');
 
 var app = express();
@@ -25,6 +26,10 @@ app.engine('hbs', exphbs({
                 thousand: ','
             });
             return nf.to(n);
+        },
+
+		upper_case: str => {
+            return str.toUpperCase();
         }
     }
 }));
@@ -38,6 +43,31 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
+var sessionStore = new MySQLStore({
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    passsword: '',
+    database: 'quanlybanhang',
+    createDatabaseTable: true,
+    schema: {
+        tableName: 'sessions',
+        columnNames: {
+            session_id: 'session_id',
+            expires: 'expires',
+            data: 'data'
+        }
+    }
+});
+
+app.use(session({
+    key: 'session_cookie_name',
+    secret: 'session_cookie_secret',
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false
+}));
+
 app.use(handleLayoutMDW);
 
 app.get('/', (req, res) => {
@@ -45,6 +75,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/home', homeController);
+app.use('/account', accountController);
 app.use('/admin', adminController);
 
 app.listen(3000, () => {
