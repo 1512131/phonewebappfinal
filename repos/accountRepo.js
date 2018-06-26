@@ -1,5 +1,10 @@
 var db = require('../fn/db');
 
+exports.get = username => {
+	var sql = `select * from users where f_Username='${username}'`;
+	return db.load(sql);
+}
+
 exports.add = user => {
 	var sql = `insert into users (f_Username, f_Password, f_Name, f_Email, f_DOB, f_Permission) values 
 	('${user.username}', '${user.password}', '${user.name}', '${user.email}', '${user.dob}', ${user.permission})`;

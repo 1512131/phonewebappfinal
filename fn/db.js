@@ -7,7 +7,6 @@ exports.load = sql => {
             port: 3306,
             user: 'root',
             password: 'root',
-            //hoaiduc123
             database: 'quanlybanhang'
         });
 

@@ -2,22 +2,20 @@
 <link rel="stylesheet" type="text/css" href="/assets/css/login.css">
 {{/section}}
 
-{{#if isFail}}
-<div class="alert alert-danger">
-	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	<strong>Title!</strong> {{errorMessage}}
-</div>
-{{/if}}
-
 <h3 class="container-custom pane-header">Đăng nhập</h3>
 <div class="container-custom white-background">
+	{{#if isFail}}
+	<div class="alert alert-danger">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		<strong>Lỗi: </strong>
+		{{errorMessage}}
+	</div>
+	{{/if}}
 	<form action="" method="post">
 		<div id="username-title">Tên đăng nhập</div>
 		<input id="txtUsername" name="username" type="text" class="form-control box" placeholder="Vui lòng nhập tên đăng nhập">
-		<span id="username-message" class="error-message"></span><br>
 		<div id="password-title">Mật khẩu</div>
 		<input  id="txtPassword" name="password" type="password" class="form-control box" placeholder="Vui lòng nhập mật khẩu">
-		<span id="password-message" class="error-message"></span><br>
 		<button  id="btn-sign-in" type="submit" class="btn btn-success">ĐĂNG NHẬP</button>
 	</form>
 </div>

@@ -37,9 +37,13 @@
 
 .card-img-top {
 	height: 200px;
-	width: 100px;
-	width: 100%;
+	width: 200px;
 }
+
 .card-li{
 	text-align: center;
+}
+
+.btn {
+	width: 85px;
 }

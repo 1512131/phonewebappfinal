@@ -9,9 +9,11 @@ var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 
 var handleLayoutMDW = require('./middle-wares/handleLayout');
+var handle404MDW = require('./middle-wares/handle404');
 
 var homeController = require('./controllers/homeController');
 var accountController = require('./controllers/accountController');
+var cartController = require('./controllers/cartController');
 var adminController = require('./controllers/adminController');
 var productController = require('./controllers/productController')
 
@@ -48,7 +50,7 @@ var sessionStore = new MySQLStore({
     host: 'localhost',
     port: 3306,
     user: 'root',
-    passsword: '',
+    password: '',
     database: 'quanlybanhang',
     createDatabaseTable: true,
     schema: {
@@ -77,8 +79,11 @@ app.get('/', (req, res) => {
 
 app.use('/home', homeController);
 app.use('/account', accountController);
+app.use('/cart', cartController);
 app.use('/admin', adminController);
 app.use('/product',productController);
+
+app.use(handle404MDW);
 
 app.listen(3000, () => {
     console.log('Site running on port 3000');
