@@ -14,14 +14,18 @@
 	width: 400px
 }
 
-#search-btn {
-	width: 50px;
-}
-
 #price_filter{
 	width: 100px;
 }
 
 .dropdown:hover>.dropdown-menu {
 	display: block;
+}
+
+.td_center{
+	text-align: center;
+}
+
+.td_bold{
+	font-weight: bold;
 }

@@ -5,6 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>Quản trị</title>
 		<link rel="stylesheet" type="text/css" href="/assets/bootstrap-3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
 	</head>
 	<body style="background-color: whitesmoke">
 		<div class="container-fluid">
@@ -18,10 +19,10 @@
 						</div>
 						
 						<ul class="nav navbar-nav">
-							<li><a href="/admin/product">QUẢN LÝ SẢN PHẤM</a></li>
-							<li><a href="/admin/category">QUẢN LÝ DANH MỤC</a></li>
-							<li><a href="/admin/manufacture">QUẢN LÝ NHÀ SẢN XUẤT</a></li>
-							<li><a href="/admin/order">QUẢN LÝ ĐƠN HÀNG</a></li>
+							<li><a href="/admin/product/index">QUẢN LÝ SẢN PHẤM</a></li>
+							<li><a href="/admin/category/index">QUẢN LÝ DANH MỤC</a></li>
+							<li><a href="/admin/manufacturer/index">QUẢN LÝ NHÀ SẢN XUẤT</a></li>
+							<li><a href="/admin/order/index">QUẢN LÝ ĐƠN HÀNG</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="">Đăng xuất</a></li>
@@ -32,14 +33,10 @@
 		</div>
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-4">
-					{{{_sections.title}}}
-				</div>
+				{{{_sections.title}}}
 			</div>
-			<div class="row">
-				<div class="col-lg-8">
-					{{{body}}}
-				</div>
+			<div class="row" style="background-color: white">
+				{{{body}}}
 			</div>
 		</div>
 		
