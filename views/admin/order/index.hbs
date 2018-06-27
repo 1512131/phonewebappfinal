@@ -8,18 +8,18 @@
 			<th class="td_center">Ngày đặt hàng</th>
 			<th class="td_center">Mã người dùng</th>
 			<th class="td_center">Tổng tiền</th>
-			<th class="td_center">Tình trạng thanh toán</th>
+			<th class="td_center">Tình trạng đơn hàng</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
 	<tbody>
 		{{#each orders}}
-		<tr>
+		<tr class="{{Class}}">
 			<td class="td_center td_bold">{{OrderID}}</td>
 			<td class="td_center">{{OrderDate}}</td>
 			<td class="td_center">{{UserID}}</td>
 			<td class="td_center">{{number_format Total}}</td>
-			<td class="td_center">{{Paid}}</td>
+			<td class="td_center">{{State}}</td>
 			<td>
 				<a class="btn btn-warning btn-sm" href="/admin/order/edit?id={{OrderID}}" role="button">
 					<span class="glyphicon glyphicon-edit"></span>

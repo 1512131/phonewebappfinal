@@ -1,4 +1,26 @@
 {{#section 'title'}}
 <h3>Xoá sản phẩm</h3>
 {{/section}}
-<p>Chưa thực hiện</p>
+{{#section 'css'}}
+	<link rel="stylesheet" type="text/css" href="/assets/css/register.css">
+{{/section}}
+<form action="" method="POST" style="margin: 30px">
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="head-box-title">Bạn có muốn xoá sản phẩm này?</div>
+			<input name="ProID" type="text" class="form-control box hidden" value="{{id}}">
+			<div class="row">
+				<div class="col-lg-6">
+					<button class="btn btn-success btn-register" type="submit">
+					<span class="glyphicon glyphicon-trash"></span> Xoá sản phẩm
+					</button>
+				</div>
+				<div class="col-lg-6">
+					<button type="button" onclick="$(location).attr('href', '/admin/product/index')" class="btn btn-primary btn-register">
+					<span class="glyphicon glyphicon-list"></span> Quay lại
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

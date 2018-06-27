@@ -22,7 +22,7 @@ exports.single = proId => {
 }
 
 exports.loadAll = () => {
-    var sql = 'select * from products';
+    var sql = 'select * from products where Active=1';
     return db.load(sql);
 }
 
@@ -32,7 +32,7 @@ exports.loadAllByCat = (catId, offset) => {
 }
 
 exports.countByCat = catId => {
-	var sql = `select count(*) as total from products where CatID = ${catId}`;
+	var sql = `select count(*) as total from products where CatID = ${catId} and Active = 1`;
     return db.load(sql);
 }
 
@@ -42,6 +42,21 @@ exports.loadAllByMan = (manId, offset) => {
 }
 
 exports.countByMan = manId => {
-	var sql = `select count(*) as total from products where ManID = ${manId}`;
+	var sql = `select count(*) as total from products where ManID = ${manId} and Active = 1`;
     return db.load(sql);
+}
+
+exports.add = (product) => {
+	var sql = `insert into products(ProName, TinyDes, FullDes, Price, Quantity, Sold, ReceiveDate, View, CatID, ManID, Origin, Active) values('${product.ProName}', '${product.TinyDes}', '${product.FullDes}', ${product.Price}, ${product.Quantity}, 0, '${product.ReceiveDate}', 0, ${product.CatID}, ${product.ManID}, '${product.Origin}', 1)`;
+	return db.save(sql);
+}
+
+exports.update = (product) => {
+	var sql = `update products set ProName = '${product.ProName}', TinyDes = '${product.TinyDes}', FullDes = '${product.FullDes}', Price = ${product.Price}, Quantity = ${product.Quantity}, ReceiveDate = '${product.ReceiveDate}', CatID = ${product.CatID}, ManID = ${product.ManID}, Origin = '${product.Origin}' where ProID = ${product.ProID}`;
+	return db.save(sql);
+}
+
+exports.delete = (ProID) => {
+	var sql = `update products set Active = 0 where ProId = ${ProID}`;
+	return db.save(sql);
 }
