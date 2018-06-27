@@ -19,7 +19,7 @@
     <div class="center-block">
         <div class="row" >
             {{#each products}}
-            <div class="col-lg-3  dien-thoai">
+            <div class="col-lg-3  dien-thoai may-tinh-bang">
                 <div class="card">
                     <img class="card-img-top" src="/image/phone/{{ManID}}/{{ProID}}/thumb.jpg" alt="{{ProName}}" title="{{ProName}}">
                     <div class="card-body">
@@ -27,7 +27,7 @@
                         <p class="price">
                             <strong>{{number_format Price}}₫</strong>
                         </p>
-                        <a href="#" class="btn btn-primary">Chi tiết</a>
+                        <a href="/product/detail/{{ProID}}" class="btn btn-primary">Chi tiết</a>
                         <a href="#" class="btn btn-danger" role="button">
                             <span class="glyphicon glyphicon-shopping-cart"></span>
                         </a>

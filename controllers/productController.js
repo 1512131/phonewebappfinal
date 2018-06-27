@@ -1,6 +1,7 @@
 var express = require('express');
-var productRepo = require('../repos/productRepo');
-var config = require('../config/config');
+var productRepo = require('../repos/productSPRepo');
+var config = require('../config/config1');
+var productRepo1 = require('../repos/productRepo');
 
 var router = express.Router();
 
@@ -76,6 +77,26 @@ router.get('/byMan/:manId', (req, res) => {
             page_numbers: numbers
         };
         res.render('product/byMan', vm);
+    });
+});
+
+router.get('/detail/:proId', (req, res) => {
+    var proId = req.params.proId;
+    productRepo.ProToCat(proId).then(rows => {
+        if (rows.length > 0) {
+            var p1 = productRepo.loadFiveByCat(rows[0].CatID,rows[0].Price);
+            var p2 = productRepo.loadFiveByMan(rows[0].ManID,rows[0].Price);
+            Promise.all([p1, p2]).then(([p1Rows, p2Rows]) => {
+                var vm = {
+                    product: rows[0],
+                    lastestProducts: p1Rows,
+                    mostViewProducts: p2Rows
+                }
+                res.render('product/detail', vm);
+            });
+        } else {
+            res.redirect('/');
+        }
     });
 });
 
