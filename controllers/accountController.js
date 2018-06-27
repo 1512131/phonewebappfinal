@@ -3,7 +3,10 @@ var SHA256 = require('crypto-js/sha256');
 var moment = require('moment');
 
 var accountRepo = require('../repos/accountRepo');
+var orderRepo = require('../repos/orderRepo');
+var productRepo = require('../repos/productRepo');
 var restrictLogged = require('../middle-wares/restrictLogged');
+var restrictNotLogged = require('../middle-wares/restrictNotLogged');
 
 var router = express.Router();
 
@@ -185,6 +188,53 @@ router.post('/login', (req, res) => {
 			errorMessage: 'Lỗi đăng nhập!'
 		};
 		res.render('account/login', vm);
+	});
+});
+
+router.get('/order', restrictNotLogged, (req, res) => {
+	orderRepo.loadAllByUserID(req.session.user.f_ID).then(rows => {
+		if (rows.length === 0) {
+			var vm = {
+				isEmpty: true
+			};
+			res.render('account/order', vm);
+		} else {
+			var arr_d = [];
+			for (var i = 0; i < rows.length; i++) {
+				var details = orderRepo.loadAllDetailByOrderID(rows[i].OrderID);
+				arr_d.push(details);
+			}
+			var ordersDetails = Promise.all(arr_d).then(arr_d => {
+				return arr_d;
+			});
+			Promise.all([rows, ordersDetails]).then(([orders,ordersDetails]) => {
+				var arr_orders = [];
+				for (var i = 0; i < orders.length; i++) {
+					var state;
+					if (orders[i].State === 0) {
+						state = "Chưa giao hàng";
+					} else if (orders[i].Status === 1) {
+						state = "Đang giao hàng";
+					} else {
+						state = "Đã giao hàng";
+					}
+					var order = {
+						OrderID: orders[i].OrderID,
+						OrderDate: moment(orders[i].OrderDate).format('DD/MM/YYYY'),
+						Total: orders[i].Total,
+						State: state,
+						OrderDetails: ordersDetails[i]
+					};
+					arr_orders.push(order);
+				}
+				Promise.all(arr_orders).then(orders => {
+					var vm = {
+						orders: orders
+					};
+					res.render('account/order', vm);
+				});		
+			});
+		}
 	});
 });
 

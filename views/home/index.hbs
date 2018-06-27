@@ -12,7 +12,7 @@
     <p class="error-message">Rất tiếc trang hiện chưa có sản phẩm. Vui lòng quay lại sau.</p>
 </div>
 {{else}}
-<form id="frmAddToCart" method="post" action="/home/addtocart">
+<form id="frmAddToCart" method="post" action="/home">
     <input id="txtProId" type="hidden" name="proId">
 </form>
 <div id="body">
@@ -222,7 +222,7 @@
 <script type="text/javascript">
     setTimeout(function() {
         alert("{{alertMessage}}");
-    }, 200);
+    }, 300);
     
 </script>
 {{/if}}

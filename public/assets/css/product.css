@@ -1,6 +1,6 @@
 .price {
 	color: red;
-	font-size: 14px;
+	font-size: 18px;
 }
 
 .card {
@@ -14,7 +14,7 @@
 .card-title {
 	margin-top: 5px;
 	margin-bottom: 0px;
-	font-size: 14px;
+	font-size: 18px;
 	height: 50px;
     display: flex;
     align-items: center;
@@ -36,7 +36,6 @@
 }
 
 .card-img-top {
-	height: 200px;
 	width: 200px;
 }
 

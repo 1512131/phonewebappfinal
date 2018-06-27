@@ -27,3 +27,9 @@ exports.remove = (cart, proId) => {
 		}
 	}
 }
+
+exports.removeAll = (cart) => {
+	for (var i = cart.length - 1; i >= 0; i--) {
+		cart.splice(i, 1);
+	}
+}

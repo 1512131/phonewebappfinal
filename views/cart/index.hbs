@@ -4,6 +4,13 @@
 
 {{#if isEmpty}}
 <div class="container gh-empty">
+	{{#if isOrderSuccess}}
+	<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		<strong>Thông báo: </strong>
+		Bạn đã đặt hàng thành công
+	</div>
+	{{/if}}
 	<p>
 		<img src="/image/empty-cart.png">
 	</p>
@@ -88,14 +95,21 @@
 					</div>
 				</div>
 			</div>
-			<button  id="ghid-total-btn" type="button" class="btn btn-danger btn-lg" onclick="">Tiến hành thanh toán</button>
+			<form method="post" action="/cart">
+    			<button  id="ghid-total-btn" type="submit" class="btn btn-danger btn-lg" onclick="">THANH TOÁN</button>
+			</form>
+			{{#if isError}}
+			<div class="alert alert-danger">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				{{errorMessage}}
+			</div>
+			{{/if}}
 		</div>
 	</div>
 </div>
 {{/if}}
 
 {{#section 'js'}}
-	<!-- <script type="text/javascript" src="/assets/js/cart.js"></script> -->
 	<script type="text/javascript">
 		$('.lnkIncrease').on('click', function() {
         	var id = $(this).data('proid');

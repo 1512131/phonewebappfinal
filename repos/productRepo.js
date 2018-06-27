@@ -2,23 +2,29 @@ var db = require('../fn/db');
 var config = require('../config/config');
 
 exports.loadLastestProducts = () => {
-	var sql = `select * from products order by ReceiveDate DESC LIMIT ${config.TOP_PRODUCTS}`;
+	var sql = `select * from products where Active='1' order by ReceiveDate DESC LIMIT ${config.TOP_PRODUCTS}`;
 	return db.load(sql);
 }
 
 exports.loadMostBuyProducts = () => {
-	var sql = `select * from products order by QuantitySold DESC LIMIT ${config.TOP_PRODUCTS}`;
+	var sql = `select * from products where Active='1' order by Sold DESC LIMIT ${config.TOP_PRODUCTS}`;
 	return db.load(sql);
 }
 
 exports.loadMostViewProducts = () => {
-	var sql = `select * from products order by View DESC LIMIT ${config.TOP_PRODUCTS}`;
+	var sql = `select * from products where Active='1' order by View DESC LIMIT ${config.TOP_PRODUCTS}`;
 	return db.load(sql);
 }
 
 exports.single = proId => {
 	var sql = `select * from products where ProID='${proId}'`;
 	return db.load(sql);
+}
+
+exports.updateQuantity = pro => {
+	var sql = `update products set Sold=${pro.sold}, Quantity=${pro.quantity} 
+	where ProID=${pro.proId}`;
+	return db.save(sql);
 }
 
 exports.loadAll = () => {

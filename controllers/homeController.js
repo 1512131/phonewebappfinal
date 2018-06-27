@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 	});
 });
 
-router.post('/addtocart', (req, res) => {
+router.post('/', (req, res) => {
 	var p1 = productRepo.loadLastestProducts();
 	var p2 = productRepo.loadMostBuyProducts();
 	var p3 = productRepo.loadMostViewProducts();
