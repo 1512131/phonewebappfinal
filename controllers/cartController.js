@@ -5,6 +5,7 @@ var cartRepo = require('../repos/cartRepo');
 var productRepo = require('../repos/productRepo');
 var orderRepo = require('../repos/orderRepo');
 var restrictNotLogged = require('../middle-wares/restrictNotLogged');
+var restrictEmptyCart = require('../middle-wares/restrictEmptyCart');
 
 var router = express.Router();
 
@@ -69,7 +70,7 @@ router.post('/remove', (req, res) => {
 	res.redirect(req.headers.referer);
 });
 
-router.post('/', (req, res) => {
+router.post('/', restrictEmptyCart, (req, res) => {
     var products = [];
     for (var i = 0; i < req.session.cart.length; i++) {
         var p = productRepo.single(req.session.cart[i].ProId);
@@ -85,7 +86,7 @@ router.post('/', (req, res) => {
                 var err = pro.ProName + " tạm ngừng kinh doanh, vui lòng quay lại sau!";
                 arr_err.push(err);
             } else if (req.session.cart[i].Quantity > products[i][0].Quantity) {
-                var err = pro.ProName + " tạm hết hàng, vui lòng quay lại sau!";
+                var err = pro.ProName + " còn " + products[i][0].Quantity + " sản phẩm, vui lòng quay lại sau!";
                 arr_err.push(err);
             }
             var item = {
@@ -110,7 +111,7 @@ router.post('/', (req, res) => {
                 var order = {
                     orderDate: moment(new Date()).format('YYYY-MM-DDTHH:mm:ss'),
                     userId: req.session.user.f_ID,
-                    total: 0,
+                    total: sumAmount,
                     state: 0
                 };
                 orderRepo.add(order).then(value => {
@@ -140,19 +141,6 @@ router.post('/', (req, res) => {
                                     }
                                 });
                             }
-                            orderRepo.getLastestOrderIDByUserID(req.session.user.f_ID).then(rows => {
-                                if (rows.length > 0) {
-                                    orderRepo.getSumAmountByOrderID(rows[0].OrderID).then(rows => {
-                                        if (rows.length > 0) {
-                                            var order = {
-                                                orderId: rows[0].OrderID,
-                                                total: rows[0].Total
-                                            };
-                                            orderRepo.updateTotal(order);
-                                        }
-                                    });
-                                }
-                            });
                             cartRepo.removeAll(req.session.cart);
                             var vm = {
                                 isEmpty: true,

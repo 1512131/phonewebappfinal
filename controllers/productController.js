@@ -45,12 +45,14 @@ router.get('/byCat/:catId', (req, res) => {
 router.post('/', (req, res) => {
     productRepo.single(req.body.proId).then(rows => {
         if (rows.length > 0) {
-            var item = {
-                ProId: req.body.proId,
-                Quantity: 1
-            };
-            cartRepo.add(req.session.cart, item);
-            res.redirect('cart');
+            if (rows[0].Active === 1 && rows[0].Quantity > 0) {
+                var item = {
+                    ProId: req.body.proId,
+                    Quantity: 1
+                };
+                cartRepo.add(req.session.cart, item);
+                res.redirect('cart');
+            }
         }
     }).catch(err => {
         res.render('error/processingError');
@@ -165,6 +167,18 @@ router.post('/detail', (req, res) => {
     }).catch(err => {
         res.render('error/processingError');
     });
-}); 
+});
+
+router.get('/search', (req, res) => {
+    var content = req.query.content;
+
+    productRepo.search(content).then(rows => {
+        var vm = {
+            products: rows,
+            noProducts: rows.length === 0,
+        };
+        res.render('product/category', vm);
+    });
+});   
 
 module.exports = router;

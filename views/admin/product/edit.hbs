@@ -3,7 +3,7 @@
 {{/section}}
 {{#section 'css'}}
 <link rel="stylesheet" type="text/css" href="/assets/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/register.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/admin.css">
 {{/section}}
 
 {{#with product}}
@@ -41,13 +41,12 @@
 			<input name="Origin" type="text" class="form-control box" placeholder="Nhập xuất xứ sản phẩm" value="{{Origin}}" required>
 			<div class="row">
 				<div class="col-lg-6">
-					<button class="btn btn-success btn-register" type="submit">
+					<button class="btn btn-success btn-edit-product" type="submit">
 						<span class="glyphicon glyphicon-edit"></span> Chỉnh sửa
 					</button>
 				</div>
 				<div class="col-lg-6">
-
-					<button type="button" onclick="$(location).attr('href', '/admin/product/index')" class="btn btn-primary btn-register">
+					<button type="button" onclick="$(location).attr('href', '/admin/product/index')" class="btn btn-danger btn-edit-product">
 						<span class="glyphicon glyphicon-list"></span> Quay lại
 					</button>
 				</div>

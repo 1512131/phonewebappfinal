@@ -167,13 +167,14 @@ router.post('/product/edit', (req, res) => {
 });
 
 router.get('/product/delete', restrictAdminNotLogged, (req, res) => {
-	var vm = {
-		id: req.query.id,
-		layout: 'admin'
-	};
-
-	res.render('admin/product/delete', vm);
-
+	productRepo.single(req.query.id).then(value => {
+		var vm = {
+			id: req.query.id,
+			name: value[0].ProName,
+			layout: 'admin'
+		};
+		res.render('admin/product/delete', vm);
+	});
 });
 
 router.post('/product/delete', (req, res) => {
@@ -387,7 +388,7 @@ router.get('/order/index', restrictAdminNotLogged, (req, res) => {
 
 			o_arr.push({
 				OrderID: rows[i].OrderID,
-				OrderDate: moment(rows[i].OrderDate).format('YYYY-MM-DD'),
+				OrderDate: moment(rows[i].OrderDate).format('DD/MM/YYYY HH:mm:ss'),
 				UserID: rows[i].UserID,
 				Total: rows[i].Total,
 				State: stt,
@@ -410,7 +411,7 @@ router.get('/order/edit', restrictAdminNotLogged, (req, res) => {
 
 		var o = {
 			OrderID: rows[0].OrderID,
-			OrderDate: moment(rows[0].OrderDate).format("YYYY-MM-DD"),
+			OrderDate: moment(rows[0].OrderDate).format("DD/MM/YYYY HH:mm:ss"),
 			UserID: rows[0].UserID,
 			Total: rows[0].Total,
 			State: rows[0].State

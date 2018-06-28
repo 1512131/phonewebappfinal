@@ -57,10 +57,9 @@
 					<ul class="dropdown-menu">
 						<li><a href="/account/profile" onclick="">Cập nhật thông tin</a></li>
 						{{#if layoutVM.isAdminLogged}}
-							<li><a href="/admin/product/index" onclick="">Quản trị</a></li>
-						{{else}}
-							<li><a href="/account/order" onclick="">Lịch sử mua hàng</a></li>
+						<li><a href="/admin/product/index" onclick="">Quản trị</a></li>
 						{{/if}}
+						<li><a href="/account/order" onclick="">Lịch sử mua hàng</a></li>
 						<li><a id="lnkLogout" href="javascript:;">Đăng xuất</a></li>
 					</ul>
 				</li>
@@ -72,6 +71,11 @@
 		</div>
 	</nav>
 	{{{body}}}
+	<div class="footer-bottom-area">
+		<div class="footer-contain">
+			<p>© 2018 Mobile Store.</p>
+		</div>
+    </div>
 	<script type="text/javascript" src="/assets/js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="/assets/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/assets/js/san-pham.js"></script>

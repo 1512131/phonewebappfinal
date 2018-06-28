@@ -1,4 +1,4 @@
-  -- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `OrderDate` datetime NOT NULL,
   `UserID` int(11) NOT NULL,
   `Total` bigint(20) NOT NULL,
-  `Paid` bit(1) NOT NULL,
+  `State` int(1) NOT NULL,
   PRIMARY KEY (`OrderID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -126,7 +126,6 @@ CREATE TABLE IF NOT EXISTS `products` (
   `CatID` int(11) NOT NULL,
   `ManID` int(11) NOT NULL,
   `Origin` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `Producer` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `Active` int(1) NOT NULL,
   PRIMARY KEY (`ProID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -186,20 +185,6 @@ INSERT INTO `products` (`ProID`, `ProName`, `TinyDes`, `FullDes`, `Price`, `Quan
 (48, 'iPad Air 2 Cellular 128GB', 'TinyDes', 'FullDes', 15490000, 51, 15, '2018-04-04', 0, 2, 1, 'Hàn Quốc', 1),
 (49, 'iPad Wifi Cellular 128GB', 'TinyDes', 'FullDes', 14990000, 51, 16, '2018-04-03', 0, 2, 1, 'Hàn Quốc', 1),
 (50, 'iPad Mini 4 Wifi 128GB', 'TinyDes', 'FullDes', 10990000, 51, 16, '2018-04-03', 0, 2, 1, 'Hàn Quốc', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sessions`
---
-
-DROP TABLE IF EXISTS `sessions`;
-CREATE TABLE IF NOT EXISTS `sessions` (
-  `session_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `expires` int(11) UNSIGNED NOT NULL,
-  `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
-  PRIMARY KEY (`session_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 

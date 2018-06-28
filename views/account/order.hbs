@@ -20,9 +20,9 @@
 				<table width=100%>
 					<thead class="order-table-header">
 						<tr>
-							<td width="30%" class="order-table-date">Đặt ngày {{OrderDate}}</td>
-							<td width="40%" class="order-table-status">{{State}}</td>
-							<td width="20%" ></td>
+							<td width="30%" class="order-table-date">#{{OrderID}}</td>
+							<td width="40%" class="order-table-status">Đặt ngày {{OrderDate}}</td>
+							<td width="20%" >{{State}}</td>
 							<td width="10%" class="order-table-detail">
 								<a href="javascript: void(0)" class="btn-detail" id="{{OrderID}}">CHI TIẾT</a>
 							</td>
@@ -43,15 +43,15 @@
 								<span class="order-table-quantity"><span class="order-table-quantity-label">Sl:</span>{{Quantity}}</span>
 							</td>
 							<td>
-								<span>{{Amount}}</span>
+								<span>{{number_format Amount}}₫</span>
 							</td>
 						</tr>
 						{{/each}}
 						<tr>
 							<td></td>
 							<td></td>
-							<td><b>Tổng cộng</b></td>
-							<td>{{Total}}</td>
+							<td class="order-table-total-label"><b>Tổng cộng</b></td>
+							<td>{{number_format Total}}₫</td>
 						</tr>
 					</tbody>
 				</table>

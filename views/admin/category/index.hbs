@@ -1,6 +1,6 @@
 {{#section 'title'}}
 	<h3>Quản lý danh mục</h3>
-	<a class="btn btn-success" href="/admin/category/add" role="button">
+	<a class="btn btn-primary" href="/admin/category/add" role="button">
 		<span class="glyphicon glyphicon-plus"></span> Thêm danh mục
 	</a>
 {{/section}}
@@ -17,12 +17,9 @@
 		<tr>
 			<td class="td_center td_bold">{{CatID}}</td>
 			<td class="td_center">{{CatName}}</td>
-			<td>
+			<td class="td_center">
 				<a class="btn btn-warning btn-sm" href="/admin/category/edit?id={{CatID}}" role="button">
 					<span class="glyphicon glyphicon-edit"></span>	
-				</a>
-				<a class="btn btn-danger btn-sm" href="/admin/category/delete?id={{CatID}}" role="button">
-					<span class="glyphicon glyphicon-trash"></span>
 				</a>
 			</td>
 		</tr>

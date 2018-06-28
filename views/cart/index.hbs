@@ -3,19 +3,19 @@
 {{/section}}
 
 {{#if isEmpty}}
-<div class="container gh-empty">
+<div class="gh-empty">
 	{{#if isOrderSuccess}}
-	<div class="alert alert-success">
+	<div class="alert alert-success alert-contain">
 		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 		<strong>Thông báo: </strong>
 		Bạn đã đặt hàng thành công
 	</div>
 	{{/if}}
 	<p>
-		<img src="/image/empty-cart.png">
+		<img src="/image/empty-cart.png" height="200px">
 	</p>
 	<p class="gh-empty-notice">Không có sản phẩm nào trong giỏ hàng của bạn</p>
-	<a class="btn btn-success gh-empty-btn" href="/">ĐẾN TRANG CHỦ</a>
+	<a class="btn btn-primary gh-empty-btn" href="/">ĐẾN TRANG CHỦ</a>
 </div>
 {{else}}
 <form id="frmIncrease" method="post" action="/cart/increase">
@@ -31,6 +31,12 @@
 	<h3 class="gh-header">GIỎ HÀNG CỦA BẠN</h3>
 	<div class="row">
 		<div class="col-lg-9">
+			{{#if isError}}
+			<div class="alert alert-danger">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				{{errorMessage}}
+			</div>
+			{{/if}}
 			<div class="gh-table">
 				<table width=100%>
 					<thead>
@@ -98,12 +104,6 @@
 			<form method="post" action="/cart">
     			<button  id="ghid-total-btn" type="submit" class="btn btn-danger btn-lg" onclick="">THANH TOÁN</button>
 			</form>
-			{{#if isError}}
-			<div class="alert alert-danger">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				{{errorMessage}}
-			</div>
-			{{/if}}
 		</div>
 	</div>
 </div>

@@ -1,6 +1,6 @@
 {{#section 'title'}}
 <h3>Quản lý sản phẩm</h3>
-<a class="btn btn-success" href="/admin/product/add" role="button">
+<a class="btn btn-primary" href="/admin/product/add" role="button">
 	<span class="glyphicon glyphicon-plus"></span> Thêm sản phẩm
 </a>
 {{/section}}
@@ -24,13 +24,13 @@
 		<tr>
 			<td class="td_center td_bold">{{ProID}}</td>
 			<td class="td_bold">{{ProName}}</td>
-			<td class="td_center">{{Price}}</td>
+			<td class="td_center">{{number_format Price}}</td>
 			<td class="td_center">{{Sold}}</td>
 			<td class="td_center">{{Quantity}}</td>
-			<td>{{ReceiveDate}}</td>
+			<td class="td_center">{{ReceiveDate}}</td>
 			<td class="td_center">{{View}}</td>
 			<td>{{Origin}}</td>
-			<td>
+			<td class="td_center">
 				<a class="btn btn-warning btn-sm" href="/admin/product/edit?id={{ProID}}" role="button">
 					<span class="glyphicon glyphicon-edit"></span>
 				</a>

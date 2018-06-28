@@ -1,6 +1,21 @@
 var db = require('../fn/db');
 var config = require('../config/config');
 
+exports.search = content => {
+	var sql = `select * from products where Active=1 and ProName like '%${content}%' order by ReceiveDate DESC`;
+	return db.load(sql);
+}
+
+// exports.search = (content, offset) => {
+// 	var sql = `select * from products where Active=1 and ProName like '%${content}%' order by ReceiveDate DESC limit ${config.PRODUCTS_PER_PAGE} offset ${offset}`;
+// 	return db.load(sql);
+// }
+
+exports.countBySearchContent = content =>  {
+	var sql = `select count(*) as total from products where Active=1 and ProName like '%${content}%'`;
+	return db.load(sql);
+}
+
 exports.single = proId => {
 	var sql = `select * from products where ProID='${proId}'`;
 	return db.load(sql);

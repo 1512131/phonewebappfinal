@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
 	var p4 = productRepo.single(req.body.proId);
 	Promise.all([p1, p2, p3, p4]).then(([p1Rows, p2Rows, p3Rows, p4Rows]) => {
 		if (p4Rows.length > 0) {
-			if (p4Rows[0].QuantityRemain === 0) {
+			if (p4Rows[0].Quantity === 0) {
 				var vm = {
 					isAlert: true,
 					alertMessage: "Sản phẩm tạm hết hàng!",

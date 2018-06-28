@@ -6,6 +6,6 @@ module.exports = (req, res, next) => {
 			res.redirect('/home');
 		}
 	} else {
-		res.redirect(`/account/login?retUrl=${req.originalUrl}`);res.redirect('/home');
+		res.redirect(`/account/login?retUrl=${req.originalUrl}`);
 	}
 }

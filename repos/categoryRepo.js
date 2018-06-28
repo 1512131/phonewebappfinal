@@ -1,12 +1,12 @@
 var db = require('../fn/db');
 
 exports.loadAll = () => {
-	var sql = 'select CatID,upper(CatName) as CatName from categories';
+	var sql = 'select * from categories';
 	return db.load(sql);
 }
 
 exports.single = (CatID) => {
-	var sql = `select CatID,upper(CatName) as CatName from categories where CatID = ${CatID}`;
+	var sql = `select * from categories where CatID = ${CatID}`;
 	return db.load(sql);
 }
 

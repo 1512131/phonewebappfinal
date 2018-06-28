@@ -1,12 +1,12 @@
 var db = require('../fn/db.js');
 
 exports.loadAll = () => {
-	var sql = 'select ManID,upper(ManName) as ManName from manufacturers';
+	var sql = 'select * from manufacturers';
 	return db.load(sql);
 }
 
 exports.single = (ManID) => {
-	var sql = `select ManID,upper(ManName) as ManName from manufacturers where ManID = ${ManID}`;
+	var sql = `select * from manufacturers where ManID = ${ManID}`;
 	return db.load(sql);
 }
 

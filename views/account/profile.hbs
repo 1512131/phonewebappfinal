@@ -1,6 +1,5 @@
 {{#section 'css'}}
 <link rel="stylesheet" type="text/css" href="/assets/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/register.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/profile.css">
 {{/section}}
 <div class="container">
@@ -27,12 +26,12 @@
 					<span id="birthday-message" class="error-message">{{dobErrorMessage}}</span>
 					<div class="row">
 						<div class="col-lg-6">
-							<button class="btn btn-success btn-register" type="submit">
+							<button class="btn btn-success btn-update" type="submit">
 							<span class="glyphicon glyphicon-edit"></span> Cập nhật
 							</button>
 						</div>
 						<div class="col-lg-6">
-							<button type="button" onclick="$(location).attr('href', '/account/changepassword')" class="btn btn-primary btn-register">
+							<button type="button" onclick="$(location).attr('href', '/account/changepassword')" class="btn btn-primary btn-update">
 							<span class="glyphicon glyphicon-lock"></span> Đổi mật khẩu
 							</button>
 						</div>

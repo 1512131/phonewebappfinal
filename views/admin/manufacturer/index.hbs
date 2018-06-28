@@ -1,6 +1,6 @@
 {{#section 'title'}}
 	<h3>Quản lý nhà sản xuất</h3>
-	<a class="btn btn-success" href="/admin/manufacturer/add" role="button">
+	<a class="btn btn-primary" href="/admin/manufacturer/add" role="button">
 		<span class="glyphicon glyphicon-plus"></span> Thêm nhà sản xuất
 	</a>
 {{/section}}
@@ -18,12 +18,9 @@
 		<tr>
 			<td class="td_center td_bold">{{ManID}}</td>
 			<td class="td_center">{{ManName}}</td>
-			<td>
+			<td class="td_center">
 				<a class="btn btn-warning btn-sm" href="/admin/manufacturer/edit?id={{ManID}}" role="button">
 					<span class="glyphicon glyphicon-edit"></span>	
-				</a>
-				<a class="btn btn-danger btn-sm" href="/admin/manufacturer/delete?id={{ManID}}" role="button">
-					<span class="glyphicon glyphicon-trash"></span>
 				</a>
 			</td>
 		</tr>

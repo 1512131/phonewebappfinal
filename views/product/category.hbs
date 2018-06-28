@@ -5,11 +5,11 @@
 <link rel="stylesheet" type="text/css" href="/assets/css/owl.carousel.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/responsive.css">
 {{/section}}
+
 {{#if noProducts}}
-<div class="row">
-  <div class="col-sm-12 col-md-12 col-lg-12">
-    Không có sản phẩm thoả yêu cầu.
-  </div>
+<div class="noproduct-container">
+    <img src="/image/no-products-found.png" height="240px">
+    <p class="noproduct-message">Không tìm thấy sản phẩm theo yêu cầu.</p>
 </div>
 {{else}}
 <form id="frmAddToCart" method="post" action="/product">

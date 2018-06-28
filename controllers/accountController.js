@@ -173,9 +173,9 @@ router.post('/login', (req, res) => {
 			if (req.query.retUrl) {
 				url = req.query.retUrl;
 			}
-
+			
 			var permission = rows[0].f_Permission;
-			if (permission == 0) {
+			if (permission === 0) {
 				res.redirect(url);
 			} else {
 				req.session.isAdminLogged = true;
@@ -244,12 +244,9 @@ router.get('/order', restrictNotLogged, (req, res) => {
 	});
 });
 
-router.get('/profile', (req, res) => {
-
+router.get('/profile', restrictNotLogged, (req, res) => {
 	var id = req.session.user.f_ID;
-
 	accountRepo.single(id).then(rows => {
-		
 		var p = {
 			name: rows[0].f_Name,
 			email: rows[0].f_Email,
@@ -259,10 +256,8 @@ router.get('/profile', (req, res) => {
 		var vm = {
 			profile: p
 		}
-
 		res.render('account/profile', vm);
 	});
-
 });
 
 router.post('/profile', (req, res) => {
@@ -277,38 +272,41 @@ router.post('/profile', (req, res) => {
 
 });
 
-router.get('/changepassword', (req, res) => {
+router.get('/changepassword', restrictNotLogged, (req, res) => {
 	res.render('account/changepassword');
 });
 
 router.post('/changepassword', (req, res) => {
-
 	var cur_password = req.body.cur_password;
 	var new_password = req.body.new_password;
 	var confirm_password = req.body.confirm_password;
-
 	if (SHA256(cur_password).toString() != req.session.user.f_Password) {
 		var vm = {
-			wrong_password: 'Sai mật khẩu'
+			isAlert: true,
+			message: 'Mật khẩu hiện tại không đúng.'
 		};
-
 		res.render('account/changepassword', vm);
-	}
-
-	if (new_password != confirm_password) {
+	} else if (new_password.length < 4) {
 		var vm = {
-			wrong_confirm: 'Mật khẩu xác nhận không đúng'
+			isAlert: true,
+			message: 'Mật khẩu quá ngắn.'
 		};
-
 		res.render('account/changepassword', vm);
+	} else if (new_password != confirm_password) {
+		var vm = {
+			isAlert: true,
+			message: 'Nhập lại mật khẩu không đúng.'
+		};
+		res.render('account/changepassword', vm);
+	} else {
+		accountRepo.changepassword(req.session.user.f_ID, SHA256(new_password).toString()).then(value => {
+			var vm = {
+				isAlert: true,
+				message: 'Đổi mật khẩu thành công.'
+			};
+			res.render('account/changepassword', vm);
+		});
 	}
-
-	accountRepo.changepassword(req.session.user.f_ID, SHA256(new_password).toString()).then(value => {
-		req.session.isLogged = false;
-		req.session.isAdminLogged = false;
-		req.session.user = null;
-		res.redirect('/home');
-	});
 });
 
 router.post('/logout', (req, res) => {

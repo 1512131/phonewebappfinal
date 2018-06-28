@@ -1,5 +1,6 @@
 .header-title {
     color: #3d3d3d;
+    margin-top: 30px;
     margin-bottom: 20px;
 }
 
@@ -61,6 +62,9 @@
     color: #c9c9c9;
 }
 
+.order-table-total-label {
+    padding: 10px;
+}
 .order-empty {
     background-color: white;
     text-align: center;
@@ -87,4 +91,42 @@
 
 .btn-down {
     margin-top: 20px;
+    margin-bottom: 300px;
+}
+
+.body-container {
+    background-color: white;
+    padding: 20px;
+}
+
+.head-box-title {
+    margin-bottom: 4px;
+}
+
+.box-title {
+    margin-top: 25px;
+    margin-bottom: 4px;
+}
+
+.box {
+    height: 40px !important;
+}
+
+.btn-change-password {
+    margin-top: 25px;
+    width: 100%;
+    height: 40px;
+}
+
+.btn-update {
+    margin-top: 45px;
+    width: 100%;
+    height: 40px;
+}
+
+.error-message {
+    color: red;
+    font-style: italic;
+    font-size: 12px;
+    margin-bottom: 40px;
 }

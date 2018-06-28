@@ -8,8 +8,8 @@
 
 {{#if noProduct}}
 <div class="noproduct-container">
-    <img src="/image/no-products-found.png" width="250px">
-    <p class="error-message">Rất tiếc trang hiện chưa có sản phẩm. Vui lòng quay lại sau.</p>
+    <img src="/image/no-products-found.png" height="240px">
+    <p class="noproduct-message">Rất tiếc trang hiện chưa có sản phẩm. Vui lòng quay lại sau.</p>
 </div>
 {{else}}
 <form id="frmAddToCart" method="post" action="/home">
@@ -23,7 +23,6 @@
                 <div class="top-product">
                     <h2 class="top-title">Sản phẩm mới nhất</h2>
                     <div class="product-carousel">
-                        {{#if layoutVM.isLogged}}
                         {{#each lastestProducts}}
                         <div class="card">
                             <img class="card-img-top" src="/image/products/{{ProID}}/thumb.jpg">
@@ -39,33 +38,16 @@
                                         <span class="glyphicon glyphicon-search"></span>
                                          Chi tiết
                                     </a>
+                                    {{#if ../layoutVM.isLogged}}
                                     <a class="btn btn-danger lnkAdd" href="javascript:;" role="button" data-proid="{{ProID}}">
                                         <span class="glyphicon glyphicon-shopping-cart"></span>
                                         Mua
                                     </a>
+                                    {{/if}}
                                 </form>
                             </div>
                         </div>
                         {{/each}}
-                        {{else}}
-                        {{#each lastestProducts}}
-                        <div class="card">
-                            <img class="card-img-top" src="/image/products/{{ProID}}/thumb.jpg">
-                            <div class="card-body">
-                                <div class="card-title">
-                                    {{ProName}}
-                                </div>
-                                <p class="price">
-                                    <strong>{{number_format Price}}₫</strong>
-                                </p>
-                                <a href="/product/detail/{{ProID}}" class="btn btn-primary">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                     Chi tiết
-                                </a>
-                            </div>
-                        </div>
-                        {{/each}}
-                        {{/if}}
                     </div>
                 </div>
             </div>
@@ -79,7 +61,6 @@
                 <div class="top-product">
                     <h2 class="top-title">Sản phẩm bán chạy nhất</h2>
                     <div class="product-carousel">
-                        {{#if layoutVM.isLogged}}
                         {{#each mostBuyProducts}}
                         <div class="card">
                             <img class="card-img-top" src="/image/products/{{ProID}}/thumb.jpg">
@@ -95,33 +76,16 @@
                                         <span class="glyphicon glyphicon-search"></span>
                                          Chi tiết
                                     </a>
+                                    {{#if ../layoutVM.isLogged}}
                                     <a class="btn btn-danger lnkAdd" href="javascript:;" role="button" data-proid="{{ProID}}">
                                         <span class="glyphicon glyphicon-shopping-cart"></span>
                                         Mua
                                     </a>
+                                    {{/if}}
                                 </form>
                             </div>
                         </div>
                         {{/each}}
-                        {{else}}
-                        {{#each mostBuyProducts}}
-                        <div class="card">
-                            <img class="card-img-top" src="/image/products/{{ProID}}/thumb.jpg">
-                            <div class="card-body">
-                                <div class="card-title">
-                                    {{ProName}}
-                                </div>
-                                <p class="price">
-                                    <strong>{{number_format Price}}₫</strong>
-                                </p>
-                                <a href="/product/detail/{{ProID}}" class="btn btn-primary">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                     Chi tiết
-                                </a>
-                            </div>
-                        </div>
-                        {{/each}}
-                        {{/if}}
                     </div>
                 </div>
             </div>
@@ -135,7 +99,6 @@
                 <div class="top-product">
                     <h2 class="top-title">Sản phẩm được xem nhiều nhất</h2>
                     <div class="product-carousel">
-                        {{#if layoutVM.isLogged}}
                         {{#each mostViewProducts}}
                         <div class="card">
                             <img class="card-img-top" src="/image/products/{{ProID}}/thumb.jpg">
@@ -151,33 +114,16 @@
                                         <span class="glyphicon glyphicon-search"></span>
                                          Chi tiết
                                     </a>
+                                    {{#if ../layoutVM.isLogged}}
                                     <a class="btn btn-danger lnkAdd" href="javascript:;" role="button" data-proid="{{ProID}}">
                                         <span class="glyphicon glyphicon-shopping-cart"></span>
                                         Mua
                                     </a>
+                                    {{/if}}
                                 </form>
                             </div>
                         </div>
-                        {{/each}}
-                        {{else}}
-                        {{#each mostViewProducts}}
-                        <div class="card">
-                            <img class="card-img-top" src="/image/products/{{ProID}}/thumb.jpg">
-                            <div class="card-body">
-                                <div class="card-title">
-                                    {{ProName}}
-                                </div>
-                                <p class="price">
-                                    <strong>{{number_format Price}}₫</strong>
-                                </p>
-                                <a href="/product/detail/{{ProID}}" class="btn btn-primary">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                     Chi tiết
-                                </a>
-                            </div>
-                        </div>
-                        {{/each}}
-                        {{/if}}
+                        {{/each}}                        
                     </div>
                 </div>
             </div>
