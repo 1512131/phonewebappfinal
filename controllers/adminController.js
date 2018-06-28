@@ -245,6 +245,34 @@ router.post('/category/edit', (req, res) => {
 	});
 });
 
+router.get('/category/delete', restrictAdminNotLogged, (req, res) => {
+	var CatID = req.query.id;
+
+	var p1 = categoryRepo.single(CatID);
+	var p2 = productRepo.countByCat(CatID);
+	Promise.all([p1, p2]).then(([catRows, proRows]) => {
+		var cat = {
+			CatID: catRows[0].CatID,
+			CatName: catRows[0].CatName,
+			ProCount: proRows[0].total
+		};
+
+		var vm = {
+			category: cat,
+			canDelete: proRows[0].total==0,
+			layout: 'admin'
+		};
+
+		res.render('admin/category/delete', vm);
+	});
+});
+
+router.post('/category/delete', (req, res) => {
+	categoryRepo.delete(req.body.CatID).then(value => {
+		res.redirect('/admin/category/index');
+	});
+});
+
 router.get('/manufacturer', restrictAdminNotLogged, (req, res) => {
 	res.redirect('/admin/manufacturer/index');
 });
@@ -301,6 +329,34 @@ router.post('/manufacturer/edit', (req, res) => {
 		ManName: req.body.ManName
 	}
 	manufacturerRepo.update(man).then(value => {
+		res.redirect('/admin/manufacturer/index');
+	});
+});
+
+router.get('/manufacturer/delete', restrictAdminNotLogged, (req, res) => {
+	var ManID = req.query.id;
+
+	var p1 = manufacturerRepo.single(ManID);
+	var p2 = productRepo.countByMan(ManID);
+	Promise.all([p1, p2]).then(([manRows, proRows]) => {
+		var man = {
+			ManID: manRows[0].ManID,
+			ManName: manRows[0].ManName,
+			ProCount: proRows[0].total
+		};
+
+		var vm = {
+			manufacturer: man,
+			canDelete: proRows[0].total==0,
+			layout: 'admin'
+		};
+
+		res.render('admin/manufacturer/delete', vm);
+	});
+});
+
+router.post('/manufacturer/delete', (req, res) => {
+	manufacturerRepo.delete(req.body.ManID).then(value => {
 		res.redirect('/admin/manufacturer/index');
 	});
 });

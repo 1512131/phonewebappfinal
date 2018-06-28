@@ -19,3 +19,8 @@ exports.add = (ManName) => {
 	var sql = `insert into manufacturers(ManName) values('${ManName}')`;
 	return db.save(sql);
 }
+
+exports.delete = (ManID) => {
+	var sql = `delete from manufacturers where ManID = ${ManID}`;
+	return db.save(sql);
+}

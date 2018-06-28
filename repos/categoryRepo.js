@@ -19,3 +19,8 @@ exports.add = (CatName) => {
 	var sql = `insert into categories(CatName) values('${CatName}')`;
 	return db.save(sql);
 }
+
+exports.delete = (CatID) => {
+	var sql = `delete from categories where CatID = ${CatID}`;
+	return db.save(sql);
+}
