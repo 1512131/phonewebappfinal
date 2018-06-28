@@ -5,6 +5,9 @@ module.exports = (req, res, next) => {
   if (req.session.isLogged === undefined) {
     req.session.isLogged = false;
   }
+  if (req.session.isAdminLogged === undefined) {
+    req.session.isAdminLogged = false;
+  }
   var q = 0;
   if (req.session.isLogged === true) {
     for (var i = req.session.cart.length - 1; i >= 0; i--) {
@@ -21,6 +24,7 @@ module.exports = (req, res, next) => {
       manufacturers: manRows,
       cartQuantity: cartQuantity,
       isLogged: req.session.isLogged,
+      isAdminLogged: req.session.isAdminLogged,
       user: req.session.user
     };
     next();

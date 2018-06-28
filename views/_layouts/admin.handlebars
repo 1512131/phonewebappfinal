@@ -26,23 +26,48 @@
 							<li><a href="/admin/order/index">QUẢN LÝ ĐƠN HÀNG</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<li><a href="">Đăng xuất</a></li>
-						</ul>
-					</div>
-				</nav>
-			</div>
+							{{#if layoutVM.isLogged}}
+						<form id="frmLogout" method="post" action="/account/logout"></form>
+						<li><a href="/cart">GIỎ HÀNG({{layoutVM.cartQuantity}})</a></li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="/account/profile">
+								{{upper_case layoutVM.user.f_Name}}
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="/account/profile" onclick="">Cập nhật thông tin</a></li>
+								{{#if layoutVM.isAdminLogged}}
+								<li><a href="/admin/product/index" onclick="">Quản trị</a></li>
+								{{else}}
+								<li><a href="/account/order" onclick="">Lịch sử mua hàng</a></li>
+								{{/if}}
+								<li><a id="lnkLogout" href="javascript:;">Đăng xuất</a></li>
+							</ul>
+						</li>
+						{{else}}
+						<li><a href="/account/register">ĐĂNG KÍ</a></li>
+						<li><a href="/account/login">ĐĂNG NHẬP</a></li>
+						{{/if}}
+					</ul>
+				</div>
+			</nav>
 		</div>
-		<div class="container">
-			<div class="row">
-				{{{_sections.title}}}
-			</div>
-			<div class="row" style="background-color: white">
-				{{{body}}}
-			</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			{{{_sections.title}}}
 		</div>
-		
-		<script type="text/javascript" src="/assets/js/jquery-3.1.1.min.js"></script>
-		<script type="text/javascript" src="/assets/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-		{{{_sections.js}}}
-	</body>
+		<div class="row" style="background-color: white">
+			{{{body}}}
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="/assets/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="/assets/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$('#lnkLogout').on('click', function() {
+			$('#frmLogout').submit();
+		});
+	</script>
+	{{{_sections.js}}}
+</body>
 </html>

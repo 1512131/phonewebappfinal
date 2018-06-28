@@ -174,7 +174,13 @@ router.post('/login', (req, res) => {
 				url = req.query.retUrl;
 			}
 
-			res.redirect(url);
+			var permission = rows[0].f_Permission;
+			if (permission == 0) {
+				res.redirect(url);
+			} else {
+				req.session.isAdminLogged = true;
+				res.redirect('/admin');
+			}
 		} else {
 			var vm = {
 				isFail: true,
@@ -238,8 +244,76 @@ router.get('/order', restrictNotLogged, (req, res) => {
 	});
 });
 
+router.get('/profile', (req, res) => {
+
+	var id = req.session.user.f_ID;
+
+	accountRepo.single(id).then(rows => {
+		
+		var p = {
+			name: rows[0].f_Name,
+			email: rows[0].f_Email,
+			dob: moment(rows[0].f_DOB).format("YYYY-MM-DD")
+		}
+
+		var vm = {
+			profile: p
+		}
+
+		res.render('account/profile', vm);
+	});
+
+});
+
+router.post('/profile', (req, res) => {
+	var id = req.session.user.f_ID;
+	var name = req.body.name;
+	var email = req.body.email;
+	var dob = req.body.dob;
+
+	accountRepo.update(id, name, email, dob).then(value => {
+		res.redirect('/account/order');
+	});
+
+});
+
+router.get('/changepassword', (req, res) => {
+	res.render('account/changepassword');
+});
+
+router.post('/changepassword', (req, res) => {
+
+	var cur_password = req.body.cur_password;
+	var new_password = req.body.new_password;
+	var confirm_password = req.body.confirm_password;
+
+	if (SHA256(cur_password).toString() != req.session.user.f_Password) {
+		var vm = {
+			wrong_password: 'Sai mật khẩu'
+		};
+
+		res.render('account/changepassword', vm);
+	}
+
+	if (new_password != confirm_password) {
+		var vm = {
+			wrong_confirm: 'Mật khẩu xác nhận không đúng'
+		};
+
+		res.render('account/changepassword', vm);
+	}
+
+	accountRepo.changepassword(req.session.user.f_ID, SHA256(new_password).toString()).then(value => {
+		req.session.isLogged = false;
+		req.session.isAdminLogged = false;
+		req.session.user = null;
+		res.redirect('/home');
+	});
+});
+
 router.post('/logout', (req, res) => {
 	req.session.isLogged = false;
+	req.session.isAdminLogged = false;
 	req.session.user = null;
 	res.redirect(req.headers.referer);
 });

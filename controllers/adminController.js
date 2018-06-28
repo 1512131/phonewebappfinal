@@ -4,18 +4,19 @@ var productRepo = require('../repos/productRepo'),
 	manufacturerRepo = require('../repos/manufacturerRepo'),
 	orderRepo = require('../repos/orderRepo');
 var moment = require('moment');
+var restrictAdminNotLogged = require('../middle-wares/restrictAdminNotLogged');
 
 var router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', restrictAdminNotLogged, (req, res) => {
 	res.redirect('/admin/product/index');
 });
 
-router.get('/product', (req, res) => {
+router.get('/product', restrictAdminNotLogged, (req, res) => {
 	res.redirect('/admin/product/index');
 });
 
-router.get('/product/index', (req, res) => {
+router.get('/product/index', restrictAdminNotLogged, (req, res) => {
 
 	var p_arr = [];
 
@@ -42,7 +43,7 @@ router.get('/product/index', (req, res) => {
 	});
 });
 
-router.get('/product/add', (req, res) => {
+router.get('/product/add', restrictAdminNotLogged, (req, res) => {
 
 	var p1 = categoryRepo.loadAll();
 	var p2 = manufacturerRepo.loadAll();
@@ -76,7 +77,7 @@ router.post('/product/add', (req, res) => {
 	});
 });
 
-router.get('/product/edit', (req, res) => {
+router.get('/product/edit', restrictAdminNotLogged, (req, res) => {
 
 	var ProID = req.query.id;
 	var p1 = productRepo.single(ProID);
@@ -165,7 +166,7 @@ router.post('/product/edit', (req, res) => {
 	});
 });
 
-router.get('/product/delete', (req, res) => {
+router.get('/product/delete', restrictAdminNotLogged, (req, res) => {
 	var vm = {
 		id: req.query.id,
 		layout: 'admin'
@@ -182,11 +183,11 @@ router.post('/product/delete', (req, res) => {
 	});
 });
 
-router.get('/category', (req, res) => {
+router.get('/category', restrictAdminNotLogged, (req, res) => {
 	res.redirect('/admin/category/index');
 });
 
-router.get('/category/index', (req, res) => {
+router.get('/category/index', restrictAdminNotLogged, (req, res) => {
 	categoryRepo.loadAll().then(rows => {
 		var vm = {
 			categories: rows,
@@ -197,7 +198,7 @@ router.get('/category/index', (req, res) => {
 	});
 });
 
-router.get('/category/add', (req, res) => {
+router.get('/category/add', restrictAdminNotLogged, (req, res) => {
 
 	var vm = {
 		layout: 'admin'
@@ -212,7 +213,7 @@ router.post('/category/add', (req, res) => {
 	});
 });
 
-router.get('/category/edit', (req, res) => {
+router.get('/category/edit', restrictAdminNotLogged, (req, res) => {
 
 	var CatID = req.query.id;
 
@@ -244,11 +245,11 @@ router.post('/category/edit', (req, res) => {
 	});
 });
 
-router.get('/manufacturer', (req, res) => {
+router.get('/manufacturer', restrictAdminNotLogged, (req, res) => {
 	res.redirect('/admin/manufacturer/index');
 });
 
-router.get('/manufacturer/index', (req, res) => {
+router.get('/manufacturer/index', restrictAdminNotLogged, (req, res) => {
 	manufacturerRepo.loadAll().then(rows => {
 		var vm = {
 			manufacturers: rows,
@@ -258,7 +259,7 @@ router.get('/manufacturer/index', (req, res) => {
 	});
 });
 
-router.get('/manufacturer/add', (req, res) => {
+router.get('/manufacturer/add', restrictAdminNotLogged, (req, res) => {
 	var vm = {
 		layout: 'admin'
 	};
@@ -272,7 +273,7 @@ router.post('/manufacturer/add', (req, res) => {
 	});
 });
 
-router.get('/manufacturer/edit', (req, res) => {
+router.get('/manufacturer/edit', restrictAdminNotLogged, (req, res) => {
 
 	var ManID = req.query.id;
 
@@ -304,11 +305,11 @@ router.post('/manufacturer/edit', (req, res) => {
 	});
 });
 
-router.get('/order', (req, res) => {
+router.get('/order', restrictAdminNotLogged, (req, res) => {
 	res.redirect('/admin/order/index');
 });
 
-router.get('/order/index', (req, res) => {
+router.get('/order/index', restrictAdminNotLogged, (req, res) => {
 
 	var o_arr = [];
 
@@ -347,7 +348,7 @@ router.get('/order/index', (req, res) => {
 	});
 });
 
-router.get('/order/edit', (req, res) => {
+router.get('/order/edit', restrictAdminNotLogged, (req, res) => {
 
 	orderRepo.single(req.query.id).then(rows => {
 

@@ -1,7 +1,6 @@
 {{#section 'css'}}
 <link rel="stylesheet" type="text/css" href="/assets/css/profile.css">
 {{/section}}
-
 <div class="container">
 	<div class="row">
 		<div class="col-lg-2 btn-contain">
@@ -21,33 +20,39 @@
 				<table width=100%>
 					<thead class="order-table-header">
 						<tr>
-							<td class="order-table-date">Đặt ngày {{OrderDate}}</td>
-							<td class="order-table-status">{{State}}</td>
-							<td></td>
-							<td class="order-table-detail">
-								<a href="account/order/detail/{{OrderID}}">CHI TIẾT</a>
+							<td width="30%" class="order-table-date">Đặt ngày {{OrderDate}}</td>
+							<td width="40%" class="order-table-status">{{State}}</td>
+							<td width="20%" ></td>
+							<td width="10%" class="order-table-detail">
+								<a href="javascript: void(0)" class="btn-detail" id="{{OrderID}}">CHI TIẾT</a>
 							</td>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="pane-detail-{{OrderID}}" style="visibility: collapse;">
 						{{#each OrderDetails}}
 						<tr>
-							<td width=30%>
+							<td>
 								<a href="/product/detail/{{ProID}}">
 									<img class="order-table-image" src="/image/products/{{ProID}}/thumb.jpg">
 								</a>
 							</td>
-							<td width=40%>
+							<td>
 								<span class="order-table-name">{{ProName}}</span>
 							</td>
-							<td width=20%>
+							<td>
 								<span class="order-table-quantity"><span class="order-table-quantity-label">Sl:</span>{{Quantity}}</span>
 							</td>
-							<td width=10%>
-								<span></span>
+							<td>
+								<span>{{Amount}}</span>
 							</td>
 						</tr>
 						{{/each}}
+						<tr>
+							<td></td>
+							<td></td>
+							<td><b>Tổng cộng</b></td>
+							<td>{{Total}}</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
@@ -55,3 +60,17 @@
 		</div>
 	</div>
 </div>
+{{#section 'js'}}
+<script type="text/javascript">
+	$('.btn-detail').bind('click', function() {
+		var id = this.id;
+		var s = '#pane-detail-' + id;
+		var val = $(s).css('visibility');
+		if (val == 'visible') {
+			$(s).css('visibility', 'collapse');
+		} else {
+			$(s).css('visibility', 'visible');
+		}
+	})
+</script>
+{{/section}}
