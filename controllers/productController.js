@@ -1,7 +1,8 @@
 var express = require('express');
-var productRepo = require('../repos/productSPRepo');
-var config = require('../config/config1');
-var productRepo1 = require('../repos/productRepo');
+
+var config = require('../config/config');
+var productRepo = require('../repos/productRepo');
+var cartRepo = require('../repos/cartRepo');
 
 var router = express.Router();
 
@@ -18,9 +19,6 @@ router.get('/byCat/:catId', (req, res) => {
     var p1 = productRepo.loadAllByCat(catId, offset);
     var p2 = productRepo.countByCat(catId);
     Promise.all([p1, p2]).then(([pRows, countRows]) => {
-        // console.log(pRows);
-        // console.log(countRows);
-
         var total = countRows[0].total;
         var nPages = total / config.TOP_PRODUCTS;
         if (total % config.TOP_PRODUCTS > 0) {
@@ -40,8 +38,23 @@ router.get('/byCat/:catId', (req, res) => {
             noProducts: pRows.length === 0,
             page_numbers: numbers
         };
-        res.render('product/byCat', vm);
+        res.render('product/category', vm);
     });
+});
+
+router.post('/', (req, res) => {
+    productRepo.single(req.body.proId).then(rows => {
+        if (rows.length > 0) {
+            var item = {
+                ProId: req.body.proId,
+                Quantity: 1
+            };
+            cartRepo.add(req.session.cart, item);
+            res.redirect('cart');
+        }
+    }).catch(err => {
+        res.render('error/processingError');
+    });       
 });
 
 router.get('/byMan/:manId', (req, res) => {
@@ -76,28 +89,82 @@ router.get('/byMan/:manId', (req, res) => {
             noProducts: pRows.length === 0,
             page_numbers: numbers
         };
-        res.render('product/byMan', vm);
+        res.render('product/category', vm);
     });
 });
 
 router.get('/detail/:proId', (req, res) => {
     var proId = req.params.proId;
-    productRepo.ProToCat(proId).then(rows => {
-        if (rows.length > 0) {
-            var p1 = productRepo.loadFiveByCat(rows[0].CatID,rows[0].Price);
-            var p2 = productRepo.loadFiveByMan(rows[0].ManID,rows[0].Price);
+    productRepo.singleDetail(proId).then(rows => {
+        if (rows.length > 0 && rows[0].Active === 1) {
+            var p1 = productRepo.loadRelativeByCat(rows[0].ProID, rows[0].CatID, rows[0].Price);
+            var p2 = productRepo.loadRelativeByMan(rows[0].ProID, rows[0].ManID, rows[0].Price);
             Promise.all([p1, p2]).then(([p1Rows, p2Rows]) => {
                 var vm = {
                     product: rows[0],
-                    lastestProducts: p1Rows,
-                    mostViewProducts: p2Rows
-                }
+                    relativeByCat: p1Rows,
+                    relativeByMan: p2Rows
+                };
+                productRepo.updateView(rows[0].ProID);
                 res.render('product/detail', vm);
+            }).catch(err => {
+                res.render('error/processingError');
             });
         } else {
-            res.redirect('/');
+            var vm = {
+                noProduct: true,
+                message: "Sản phẩm này không tồn tại hoặc đã bị xoá!"
+            }
+            res.render('product/detail', vm);
         }
+    }).catch(err => {
+        res.render('error/processingError');
     });
 });
+
+router.post('/detail', (req, res) => {
+    productRepo.singleDetail(req.body.proId).then(rows => {
+        if (rows.length > 0 && rows[0].Active === 1) {
+            var p1 = productRepo.loadRelativeByCat(rows[0].ProID, rows[0].CatID, rows[0].Price);
+            var p2 = productRepo.loadRelativeByMan(rows[0].ProID, rows[0].ManID, rows[0].Price);
+            Promise.all([p1,p2]).then(([p1Rows, p2Rows]) => {
+                if (rows[0].Quantity === 0) {
+                    var vm = {
+                        isAlert: true,
+                        alertMessage: "Sản phẩm tạm hết hàng!",
+                        product: rows[0],
+                        relativeByCat: p1Rows,
+                        relativeByMan: p2Rows
+                    };
+                    res.render('product/detail', vm);
+                } else {
+                    var item = {
+                        ProId: req.body.proId,
+                        Quantity: 1
+                    };
+                    cartRepo.add(req.session.cart, item);
+                    var vm = {
+                        isAlert: true,
+                        alertMessage: "Đã thêm sản phẩm vào giỏ hàng!",
+                        product: rows[0],
+                        relativeByCat: p1Rows,
+                        relativeByMan: p2Rows
+                    };
+                    res.render('product/detail', vm);
+                }
+            }).catch(err => {
+                res.render('error/processingError');
+            });;
+        } else {
+            var vm = {
+                noProduct: true,
+                message: "Sản phẩm này không tồn tại hoặc đã bị xoá!"
+            }
+            res.render('product/detail', vm);
+        }
+    }).catch(err => {
+        res.render('error/processingError');
+    });
+}); 
 
 module.exports = router;

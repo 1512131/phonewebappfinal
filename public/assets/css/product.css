@@ -27,7 +27,7 @@
 }
 
 .row {
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 
 .card-btn {
@@ -39,10 +39,10 @@
 	width: 200px;
 }
 
-.card-li{
-	text-align: center;
-}
-
 .btn {
 	width: 85px;
+}
+
+.card-li {
+	text-align: center;
 }

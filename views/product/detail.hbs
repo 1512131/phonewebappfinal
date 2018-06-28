@@ -1,23 +1,21 @@
-{{#section 'title'}}
-	Product List
-{{/section}}
 {{#section 'css'}}
-<link rel="stylesheet" type="text/css" href="/assets/css/chi-tiet.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/detail.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/index.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/product.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/owl.carousel.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/responsive.css">
 {{/section}}
-{{#if noProducts}}
-<div class="row">
-	<div class="col-sm-12 col-md-12 col-lg-12">
-		Không có sản phẩm thoả yêu cầu.
-	</div>
+
+{{#if noProduct}}
+<div class="no-product-container">
+    <img src="/image/no-products-found.png" height="250px">
+	<p class="no-product-message">{{message}}</p>
+    <a class="lnk-home" href="/">VỀ TRANG CHỦ</a>
 </div>
 {{else}}
 {{#with product}}
-<div class="container name">{{ProName}}</div>
+<div class="container product-name">{{ProName}}</div>
 <div class="container">
 	<div class="col-lg-6">
 		<div class="large-container">
@@ -32,17 +30,30 @@
 		</div>
 	</div>
 	<div class="col-lg-6">
-		<div id="price">
-			<strong>{{number_format Price}}đ</strong>
+		<div class="row">
+			<div class="col-lg-6 product-price">
+				<strong >{{number_format Price}} ₫</strong>
+			</div>
+			<div class="col-lg-6">
+				<form method="post" action="/product/detail">
+    				<input type="hidden" name="proId" value="{{ProID}}">
+    				{{#if ../layoutVM.isLogged}}
+					<button class="btn btn-danger btn-lg btn-add-to-cart" type="submit">
+						MUA NGAY 
+						<span class="glyphicon glyphicon-shopping-cart"></span>
+					</button>
+					{{/if}}
+				</form>
+			</div>
 		</div>
-		<div id="infor">
+		<div class="product-infor">
 			<hr><div class="row">
 				<div class="col-lg-3">Số lượt xem:</div>
 				<div class="col-lg-9">{{View}}</div>
 			</div>
 			<hr><div class="row">
 				<div class="col-lg-3">Số lượng bán:</div>
-				<div class="col-lg-9">{{Quantity}}</div>
+				<div class="col-lg-9">{{Sold}}</div>
 			</div>
 			<hr><div class="row">
 				<div class="col-lg-3">Xuất xứ:</div>
@@ -50,76 +61,74 @@
 			</div>
 			<hr><div class="row">
 				<div class="col-lg-3">Loại:</div>
-				<div class="col-lg-9">{{FullDes}}</div>
+				<div class="col-lg-9">{{CatName}}</div>
 			</div>
 			<hr><div class="row">
 				<div class="col-lg-3">Nhà sản xuất:</div>
-				<div class="col-lg-9">{{Producer}}</div>
+				<div class="col-lg-9">{{ManName}}</div>
 			</div>
 			<hr><div class="row">
 				<div class="col-lg-3">Mô tả:</div>
-				<div class="col-lg-9">{{TinyDes}}</div>
+				<div class="col-lg-9">{{Description}}</div>
 			</div>
 		</div>
 	</div>
 </div>
 {{/with}}
-<div class="maincontent-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="top-product">
-                    <h2 class="section-title">Sản phẩm tương tự</h2>
-                    <div class="product-carousel">
-                    	{{#each lastestProducts}}
-                    	<div class="card">
-                    		<img class="card-img-top" src="/image/products/{{ProID}}/thumb.jpg">
-                    		<div class="card-body">
-                    			<div class="card-title">
-                    				{{ProName}}
-                    			</div>
-                    			<p class="price">
-                    				<strong>{{number_format Price}}₫</strong>
-                    			</p>
-                    			<a href="/product/detail/{{ProID}}" class="btn btn-primary">Chi tiết</a>
-                    		</div>
-                    	</div>
-						{{/each}}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container product-relative-title">Sản phẩm cùng loại</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="top-product">
+				<div class="product-carousel">
+					{{#each relativeByCat}}
+					<div class="card">
+						<img class="card-img-top" src="/image/products/{{ProID}}/thumb.jpg">
+						<div class="card-body">
+							<div class="card-title">
+								{{ProName}}
+							</div>
+							<p class="price">
+								<strong>{{number_format Price}}₫</strong>
+							</p>
+							<a href="/product/detail/{{ProID}}" class="btn btn-primary">Chi tiết</a>
+						</div>
+					</div>
+					{{/each}}
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<div class="maincontent-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="top-product">
-                    <h2 class="section-title">Sản phẩm cùng loại</h2>
-                    <div class="product-carousel">
-                    	{{#each mostViewProducts}}
-                    	<div class="card">
-                    		<img class="card-img-top" src="/image/phone/{{ManID}}/{{ProID}}/thumb.jpg">
-                    		<div class="card-body">
-                    			<div class="card-title">
-                    				{{ProName}}
-                    			</div>
-                    			<p class="price">
-                    				<strong>{{number_format Price}}₫</strong>
-                    			</p>
-                    			<a href="/product/detail/{{ProID}}" class="btn btn-primary">Chi tiết</a>
-                    		</div>
-                    	</div>
-						{{/each}}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container product-relative-title">Sản phẩm cùng hãng</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="top-product">
+				<div class="product-carousel">
+					{{#each relativeByMan}}
+					<div class="card">
+						<img class="card-img-top" src="/image/products/{{ProID}}/thumb.jpg">
+						<div class="card-body">
+							<div class="card-title">
+								{{ProName}}
+							</div>
+							<p class="price">
+								<strong>{{number_format Price}}₫</strong>
+							</p>
+							<a href="/product/detail/{{ProID}}" class="btn btn-primary">Chi tiết</a>
+						</div>
+					</div>
+					{{/each}}
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 {{/if}}
+
 {{#section 'js'}}
+<script type="text/javascript" src="/assets/js/detail.js"></script>
 <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
 
@@ -136,6 +145,13 @@
 <!-- Slider -->
 <script type="text/javascript" src="/assets/js/bxslider.min.js"></script>
 <script type="text/javascript" src="/assets/js/script.slider.js"></script>
-<!--Detail-->
-<script type="text/javascript" src="/assets/js/chi-tiet.js"></script>
+
+{{#if isAlert}}
+<script type="text/javascript">
+    setTimeout(function() {
+        alert("{{alertMessage}}");
+    }, 300);
+    
+</script>
+{{/if}}
 {{/section}}

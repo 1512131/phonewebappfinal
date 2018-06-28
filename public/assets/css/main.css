@@ -5,9 +5,8 @@
 }
 
 #logo-image {
-	 width: 120px;
-	 height: 46px;
-	 margin-top: -12px
+	height: 46px;
+	margin-top: -12px
 }
 
 #search-box {
@@ -18,18 +17,28 @@
 	width: 50px;
 }
 
-#price_filter{
-	width: 100px;
-}
-
 .dropdown:hover>.dropdown-menu {
 	display: block;
 }
 
-.td_center{
-	text-align: center;
+.footer-bottom-area {
+    background: none repeat scroll 0 0 #000;
+    color: #fff;
+    padding: 20px;
+    margin-top: 50px;
+    text-align: left !important;
+}
+.footer-contain {
+	margin-left: 5%;
+    margin-right: 5%;
 }
 
-.td_bold{
-	font-weight: bold;
+.admin-body {
+	background-color: white;
+	margin-top: 10px;
+	margin-bottom: 100px;
+}
+
+.td_center {
+	text-align: center;
 }

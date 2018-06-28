@@ -87,7 +87,7 @@
 
 #ghid-total-btn {
 	margin-top: 20px;
-	margin-bottom: 5px;
+	margin-bottom: 280px;
 	width: 100%;
 }
 
@@ -98,20 +98,24 @@
 }
 
 .gh-empty {
-    background-color: white;
+    margin-top: 45px;
     text-align: center;
     padding: 50px;
-    margin: 100px;
+}
+
+.alert-contain {
+    margin-left: 25%;
+    margin-right: 25%;
 }
 
 .gh-empty-notice {
-    font-size: 20px;
+    font-size: 24px;
     color: #4a4a4a;
-    margin-top: 30px;
+    margin-top: 40px;
     margin-bottom: 30px;
 }
 
 .gh-empty-btn {
-    font-size: 15px !important;
+    font-size: 16px !important;
     width: 250px;
 }

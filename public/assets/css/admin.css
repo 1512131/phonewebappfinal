@@ -26,19 +26,18 @@
 	height: 40px !important;
 }
 
-.btn-register {
-	margin-top: 36px;
+.btn-edit-product {
+	margin-top: 55px;
 	width: 100%;
 	height: 40px;
 }
 
-.error-message {
-	color: red;
-	font-style: italic;
-	font-size: 12px;
-	margin-bottom: 40px;
+.btn-edit-cat {
+	margin-top: 30px;
+	width: 100%;
+	height: 40px;
 }
 
-.g-recaptcha {
-	margin-top: 34px;
+.delete-message {
+	font-size: 20px;
 }

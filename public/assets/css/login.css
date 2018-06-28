@@ -1,14 +1,15 @@
-.pane-header {
+.header-title {
 	margin-top: 60px;
 	margin-bottom: 30px;
 }
 
-.container-custom {
+.body-contain {
 	margin-left: 35%;
 	margin-right: 35%;
+	margin-bottom: 100px;
 }
 
-.white-background {
+.form-contain {
 	background-color: white;
 	padding: 30px;
 }
@@ -17,11 +18,11 @@
 	height: 40px !important;
 }
 
-#username-title {
+.username-title {
 	margin-bottom: 4px;
 }
 
-#password-title {
+.password-title {
 	margin-top: 40px;
 	margin-bottom: 4px;
 }
