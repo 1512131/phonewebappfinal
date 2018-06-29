@@ -8,7 +8,7 @@
 	text-align: center;
 	padding: 10px;
 	margin-bottom: 20px;
-	height: 340px;
+	height: 350px;
 }
 
 .card-title {
@@ -26,6 +26,10 @@
 	text-align: center;
 }
 
+.btn-search {
+	margin: 10px 0;
+	width: 100% !important;
+}
 .row {
 	margin-bottom: 10px;
 }
@@ -36,7 +40,7 @@
 }
 
 .card-img-top {
-	width: 200px;
+	height: 200px;
 }
 
 .btn {
@@ -58,4 +62,8 @@
     color: #4a4a4a;
     margin-top: 40px;
     margin-bottom: 30px;
+}
+
+.well {
+	background-color: white;
 }

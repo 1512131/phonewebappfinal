@@ -3,6 +3,8 @@ var express = require('express');
 var config = require('../config/config');
 var productRepo = require('../repos/productRepo');
 var cartRepo = require('../repos/cartRepo');
+var categoryRepo = require('../repos/categoryRepo');
+var manufacturerRepo = require('../repos/manufacturerRepo');
 
 var router = express.Router();
 
@@ -180,5 +182,74 @@ router.get('/search', (req, res) => {
         res.render('product/category', vm);
     });
 });   
+
+router.get('/search-advantage', (req, res) => {
+    var name, catIds, manIds, price;
+    if (req.query.manId === undefined) {
+        manIds = res.locals.layoutVM.manufacturers;
+    } else {
+        manIds = req.query.manId;
+    }
+    if (req.query.catId === undefined) {
+        catIds = res.locals.layoutVM.categories;
+    } else {
+        catIds = req.query.catId;
+    }
+    var catIdsString = "";
+    var manIdsString = "";
+    for (var i = 0; i < manIds.length; i++) {
+        if (i !== manIds.length - 1) {
+            manIdsString += manIds[i] + ",";
+        } else {
+            manIdsString += manIds[i];
+        }
+    }
+    for (var i = 0; i < catIds.length; i++) {
+        if (i !== catIds.length - 1) {
+            catIdsString += catIds[i] + ",";
+        } else {
+            catIdsString += catIds[i];
+        }
+    }
+    
+    if (req.query.price === undefined) {
+        price = {
+            down: 0,
+            up: 999999999
+        };
+    } else if (req.query.price === 2) {
+        price = {
+            down: 0,
+            up: 999999
+        };
+    } else if (req.query.price === 2) {
+        price = {
+            down: 1000000,
+            up: 4999999
+        };
+    } else if (req.query.price === 3) {
+        price = {
+            down: 5000000,
+            up: 9999999
+        };
+    } else if (req.query.price === 4) {
+        price = {
+            down: 10000000,
+            up: 14999999
+        };
+    } else {
+        price = {
+            down: 15000000,
+            up: 999999999
+        };
+    }
+    productRepo.searchAdventage(req.query.name, catIdsString, manIdsString, price).then(rows => {
+        var vm = {
+            products: rows,
+            noProducts: rows.length === 0,
+        };
+        res.render('product/category', vm);
+    });
+});
 
 module.exports = router;

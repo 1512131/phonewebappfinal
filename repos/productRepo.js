@@ -6,10 +6,11 @@ exports.search = content => {
 	return db.load(sql);
 }
 
-// exports.search = (content, offset) => {
-// 	var sql = `select * from products where Active=1 and ProName like '%${content}%' order by ReceiveDate DESC limit ${config.PRODUCTS_PER_PAGE} offset ${offset}`;
-// 	return db.load(sql);
-// }
+exports.searchAdventage = (name, catIdsString, manIdsString, price) => {
+	var sql = `select * from products where Active=1 and ProName like '%${name}%' and CatID in (${catIdsString})
+	and ManID in (${manIdsString}) and Price between ${price.down} and ${price.up} order by ReceiveDate DESC`;
+	return db.load(sql);
+}
 
 exports.countBySearchContent = content =>  {
 	var sql = `select count(*) as total from products where Active=1 and ProName like '%${content}%'`;

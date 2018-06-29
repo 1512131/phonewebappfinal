@@ -1,9 +1,6 @@
 {{#section 'css'}}
 <link rel="stylesheet" type="text/css" href="/assets/css/index.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/product.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/owl.carousel.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/responsive.css">
 {{/section}}
 
 {{#if noProducts}}
@@ -15,11 +12,49 @@
 <form id="frmAddToCart" method="post" action="/product">
     <input id="txtProId" type="hidden" name="proId">
 </form>
-<div class="container">
-    <div class="center-block">
+<div class="container-fluid">
+    <div class="col-lg-2 col-sm-2 well">
+        <form method="get" action="/product/search-advantage">
+            <input type="text" name="name" class="form-control" placeholder="Nhập tên sản phẩm">
+            <button type="submit" class="btn btn-primary btn-search">
+                <i class="glyphicon glyphicon-search"></i> Tìm kiếm
+            </button>
+            <h4>Loại sản phẩm</h4>
+            {{#each layoutVM.categories}}
+            <div class="checkbox">
+                <label><input type="checkbox" name="catId" value="{{CatID}}"> {{CatName}}</label>
+            </div>
+            {{/each}}
+            <hr>
+            <h4>Nhà sản xuất</h4>
+            {{#each layoutVM.manufacturers}}
+            <div class="checkbox">
+                <label><input type="checkbox" name="manId" value="{{ManID}}"> {{ManName}}</label>
+            </div>
+            {{/each}}
+            <hr>
+            <h4>Mức giá</h4>
+            <div class="radio">
+                <label><input type="radio" name="price" value="1"> Dưới 1 triệu</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="price" value="2"> Từ 1-5 triệu</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="price" value="3"> Từ 5-10 triệu</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="price" value="4"> Từ 10-15 triệu</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="price" value="5"> Trên 15 triệu</label>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-10 col-sm-10">
         <div class="row" >
             {{#each products}}
-            <div class="col-lg-3  dien-thoai may-tinh-bang">
+            <div class="col-lg-3 col-sm-3  dien-thoai may-tinh-bang">
                 <div class="card">
                     <img class="card-img-top" src="/image/products/{{ProID}}/thumb.jpg" alt="{{ProName}}" title="{{ProName}}">
                     <div class="card-body">
@@ -42,44 +77,27 @@
             </div>
             {{/each}}
         </div>
+        <div class="card-li">
+            <ul class="pagination">
+                <li class="disabled">
+                    <a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a>
+                </li>
+                {{#each page_numbers}}
+                    {{#if isCurPage}}
+                        <li class="active"><a href="javascript:;">{{value}}</a></li>
+                    {{else}}
+                        <li><a href="?page={{value}}">{{value}}</a></li>
+                    {{/if}}
+                {{/each}}
+                <li>
+                    <a href="#" aria-label="Next"><span aria-hidden="true">»</span></a>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
-<div class="card-li">
-    <ul class="pagination">
-       <li class="disabled">
-          <a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a>
-      </li>
-      {{#each page_numbers}}
-      {{#if isCurPage}}
-      <li class="active"><a href="javascript:;">{{value}}</a></li>
-      {{else}}
-      <li><a href="?page={{value}}">{{value}}</a></li>
-      {{/if}}
-      {{/each}}
-      <li>
-          <a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-      </ul>
-  </nav>
 </div>
 {{/if}}
 {{#section 'js'}}
-<script type="text/javascript" src="/assets/js/jquery.min.js"></script>
-<script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
-
-<!-- jQuery sticky menu -->
-<script type="text/javascript" src="/assets/js/owl.carousel.min.js"></script>
-<script type="text/javascript" src="/assets/js/jquery.sticky.js"></script>
-
-<!-- jQuery easing -->
-<script type="text/javascript" src="/assets/js/jquery.easing.1.3.min.js"></script>
-
-<!-- Main Script -->
-<script type="text/javascript" src="/assets/js/main.js"></script>
-
-<!-- Slider -->
-<script type="text/javascript" src="/assets/js/bxslider.min.js"></script>
-<script type="text/javascript" src="/assets/js/script.slider.js"></script>
-
 <script type="text/javascript">
     $('.lnkAdd').on('click', function() {
         var id = $(this).data('proid');
